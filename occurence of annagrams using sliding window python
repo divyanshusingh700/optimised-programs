@@ -1,27 +1,28 @@
 class Solution:
     def search(self,pat, txt):
-        hash1 = {}
+        hash1 = {} #map the pat by taking frequency of all char
         for i in pat:
             if i in hash1:
                 hash1[i] += 1
             else:
                 hash1[i] = 1
         k = len(pat)
-        count = len(hash1)
-        ans = 0
+        count = len(hash1) #it gives count of total distinct char in substring 
+        ans = 0 #this is the ans variable to get no of anagram in string
         i = 0
         j = 0
         while (j<(len(txt))):
-            if txt[j] in hash1:
+            if txt[j] in hash1: #1- if char of txt is present in dict then reduce val of that char in dict
                 hash1[txt[j]] -= 1
-                if hash1[txt[j]] == 0:
-                    count -= 1
-            if (j-i+1) <k:
+                if hash1[txt[j]] == 0: #check if val of particular char is zero
+       
+                    count -= 1 #reduce count
+            if (j-i+1) <k: #methodto check if length of window reaches to k or not
                 j += 1
-            elif (j-i+1) == k:
-                if count == 0:
+            elif (j-i+1) == k:#method to slide window 
+                if count == 0:#if count reaches to zero that means the substring is anagram of pat
                     ans += 1
-                if txt[i] in hash1:
+                if txt[i] in hash1: #calculation for i when window slide from i position so that we have to check whether txt[i] is present or not 
                     hash1[txt[i]] += 1
                     if(hash1[txt[i]] == 1):
                         count += 1
@@ -29,7 +30,7 @@ class Solution:
                 j += 1
         return ans
 
-if __name__ == "__main__":
+if __name__ == "__main__": # driver code
     tc = int(input())
     while tc > 0:
         txt = input().strip()
